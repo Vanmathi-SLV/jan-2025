@@ -1,7 +1,8 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import React from 'react';
 import Child from './components/child'
 import './App.css';
+import { AgeCounter } from './components/ageCounter';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
     <div>
 
     </div> */}
+    <AgeCounter />
     </>
   );
 }
