@@ -7,9 +7,9 @@ import { AgeCounter } from './components/ageCounter';
 function App() {
   const[loaded,setLoaded]=useState(true)
   useEffect(()=>{
-       setTimeout(()=>{
-         setLoaded(false)
-       },10000)
+      //  setTimeout(()=>{
+      //    setLoaded(false)
+      //  },10000)
   },[])
   return (
     <>
