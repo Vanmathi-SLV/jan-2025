@@ -6,22 +6,51 @@ import axios from 'axios';
 const Child = ({msg}) => {
     // console.log(msg, "props")
     //let data = 0;
-    const[data,setData]=useState() 
+    const[data,setData]=useState()
+    const[newdata,setNewData]= useState({})
     const Test= async()=> {console.log("btn") 
        // data++
     //    setData(data+1)
-    const res= await axios.get("https://jsonplaceholder.typicode.com/posts")
-    console.log(res,res.data)
-    setData(res.data)
+
+     
 
     }
 
     useEffect(()=>{
         console.log("UseEffect Loaded");
+        const fetchData=async()=>{
+        const res= await axios.get("http://localhost:5000/users")
+        console.log(res,res.data)
+        setData(res.data)
+        }
+        fetchData();
         return(()=>{
              console.log("Child Unmounted")
         })
-    },[data])
+    },[])
+
+    const getValue=(e,property)=>{
+        // console.log(e,property)
+        let obj={...newdata}
+        obj[property]=e.target.value
+        setNewData(obj)
+         
+    }
+    const handleSubmit= async()=>{
+        console.log(newdata)
+        const res= await axios.post('http://localhost:5000/users',newdata)
+        console.log(res)
+    }
+    const handleUpdate=(id)=>{
+         const findData=data.find((dt)=>dt.id==id)
+         console.log(findData)
+         axios.put(`http://localhost:5000/users/${id}`,{...findData,name:'newUpdatedName'})
+    }
+    
+    const handleDelete=(id)=>{
+        axios.delete(`http://localhost:5000/users/${id}`)
+    }
+    
 
     return(
         <>
@@ -29,6 +58,10 @@ const Child = ({msg}) => {
         <button className={T.btnclass} onClick={Test}>
             click me
         </button>
+        <input type='text' onChange={(e)=>getValue(e,"name")} />
+        <input type='email'onChange={(e)=>getValue(e,"email")} />
+        <button type='submit' onClick={handleSubmit}>Add</button>
+        
         {/* <p>
             {data}
         </p> */}
@@ -50,9 +83,11 @@ const Child = ({msg}) => {
 
   <li key={item.id}>
 
-    <h3>{item.title}</h3>
+    <h3>{item.name}</h3>
 
-    <p>{item.body}</p>
+    <p>{item.email}</p>
+    <button type='submit' onClick={()=>handleUpdate(item.id)}>Update</button>
+    <button type='submit' onClick={()=>handleDelete(item.id)}>Delete</button>
 
   </li>
 
