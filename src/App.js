@@ -1,9 +1,13 @@
 //import logo from './logo.svg';
 import React, { useEffect, useState } from 'react';
-import Child from './components/child'
+// import Child from './components/child'
 import './App.css';
-import { AgeCounter } from './components/ageCounter';
+// import { AgeCounter } from './components/ageCounter';
 // import projectOneDisplay from './components/projectOneDisplay';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
+import { Home } from './components/home'; 
+import { About } from './components/about';
+import { Nested } from './components/nested';
 function App() {
   const[loaded,setLoaded]=useState(true)
   useEffect(()=>{
@@ -13,10 +17,7 @@ function App() {
   },[])
   return (
     <>
-    {
-      loaded ?
-      <Child/> :"Unmounted"
-    }
+    //
     {/* <Child  msg='i am from parent' data='Diwakar'/> */}
     {/* <div className="App">
 
@@ -37,11 +38,31 @@ function App() {
     </div>
     <div>
     </div> */}
-    <AgeCounter />
+    {/* <AgeCounter /> */}
     {/* <projectOneDisplay/> */}
 
     
+  <Router>
+    <div style={{display: "flex",justifyContent:"space-between"}}>
+      <div>
+          I AM STATIC
+      </div>
+      <div>
+      <Routes>
+      <Route path="/Home" element={<Home/>}>
+            <Route path="/Home/nested" element={<Nested/>}/>
 
+      </Route>
+      <Route path="/About" element={<About/>}/>
+      <Route path="*" element={<>not found</>}/>
+    </Routes>
+      </div>
+
+    
+
+   
+    </div>
+  </Router>
 
 
     </>

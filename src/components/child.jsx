@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import './child.css';
 import  T from './test.module.css';
-import axios from 'axios';
+import axios from '../api/instance';
 
 const Child = ({msg}) => {
     // console.log(msg, "props")
@@ -19,7 +19,7 @@ const Child = ({msg}) => {
     useEffect(()=>{
         console.log("UseEffect Loaded");
         const fetchData=async()=>{
-        const res= await axios.get("http://localhost:5000/users")
+        const res= await axios.get("/users")
         console.log(res,res.data)
         setData(res.data)
         }
