@@ -80,11 +80,18 @@ import Header from './components/header';
 import Sidebar from './components/sidebar';
 import {Home} from './components/home';
 import {About} from './components/about';
+import { Login } from './components/login';
+import {DataProvider} from './context/newContext';
+import { Auth } from './Hoc/Auth';
 // import Contact from './components/Contact';
 
 
 const App = () => {
   return (
+
+    <DataProvider>
+    
+    
     <Router>
       <div style={{ display: 'flex' }}>
         {/* Sidebar */}
@@ -97,18 +104,20 @@ const App = () => {
           {/* Main Content Area */}
           <div style={{ padding: '20px' }}>
             <Routes>
-              <Route path="/home" element={<Home />} />
+              <Route path="/home" element={<Auth element={<Home/>}/>}/>
               <Route path="/about" element={<About />} />
               {/* <Route path="/contact" element={<Contact />} /> */}
               {/* <Redirect   path="*"
                     element={<Navigate to="/home" replace />}/>  */}
 
-              <Route path="*" element={<Navigate to="/home" replace />}/>
+              <Route path="*" element={<Navigate to="/login" replace />}/>
+              <Route path='/login' element={<Login/>}/>
             </Routes>
           </div>
         </div>
       </div>
     </Router>
+     </DataProvider>
   );
 };
 export default App

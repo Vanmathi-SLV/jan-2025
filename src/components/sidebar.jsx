@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { NewTest } from '../context/newContext';
 
 const Sidebar = () => {
+
+    const data=useContext(NewTest)
+    console.log(data)
     return (
         <div style={{ width: '200px', background: '#f4f4f4', padding: '15px', height: '100vh' }}>
             <h3>Sidebar</h3>
