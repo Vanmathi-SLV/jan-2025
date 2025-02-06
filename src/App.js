@@ -74,50 +74,59 @@
 
 
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route,Navigate } from 'react-router-dom';
-import Header from './components/header';
-import Sidebar from './components/sidebar';
-import {Home} from './components/home';
-import {About} from './components/about';
-import { Login } from './components/login';
-import {DataProvider} from './context/newContext';
-import { Auth } from './Hoc/Auth';
+import React, { useState } from 'react';
+// import { BrowserRouter as Router, Routes, Route,Navigate } from 'react-router-dom';
+// import Header from './components/header';
+// import Sidebar from './components/sidebar';
+// import {Home} from './components/home';
+// import {About} from './components/about';
+// import { Login } from './components/login';
+// import {DataProvider} from './context/newContext';
+// import { Auth } from './Hoc/Auth';
+import Expensive from './components/expensive';
 // import Contact from './components/Contact';
 
 
 const App = () => {
+  const [count, setCount] = useState(0);
+  const [childVal] = useState('to child');
+  const add = () => setCount(count + 1)
   return (
+    
 
-    <DataProvider>
+    // <DataProvider>
     
     
-    <Router>
-      <div style={{ display: 'flex' }}>
-        {/* Sidebar */}
-        <Sidebar />
+    // <Router>
+    //   <div style={{ display: 'flex' }}>
+    //     {/* Sidebar */}
+    //     <Sidebar />
 
-        <div style={{ flex: 1 }}>
-          {/* Header */}
-          <Header />
+    //     <div style={{ flex: 1 }}>
+    //       {/* Header */}
+    //       <Header />
 
-          {/* Main Content Area */}
-          <div style={{ padding: '20px' }}>
-            <Routes>
-              <Route path="/home" element={<Auth element={<Home/>}/>}/>
-              <Route path="/about" element={<About />} />
-              {/* <Route path="/contact" element={<Contact />} /> */}
-              {/* <Redirect   path="*"
-                    element={<Navigate to="/home" replace />}/>  */}
+    //       {/* Main Content Area */}
+    //       <div style={{ padding: '20px' }}>
+    //         <Routes>
+    //           <Route path="/home" element={<Auth element={<Home/>}/>}/>
+    //           <Route path="/about" element={<About />} />
+    //           {/* <Route path="/contact" element={<Contact />} /> */}
+    //           {/* <Redirect   path="*"
+    //                 element={<Navigate to="/home" replace />}/>  */}
 
-              <Route path="*" element={<Navigate to="/login" replace />}/>
-              <Route path='/login' element={<Login/>}/>
-            </Routes>
-          </div>
-        </div>
-      </div>
-    </Router>
-     </DataProvider>
+    //           <Route path="*" element={<Navigate to="/login" replace />}/>
+    //           <Route path='/login' element={<Login/>}/>
+    //         </Routes>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </Router>
+    //  </DataProvider>
+    <>
+    <button onClick={add} >Add App : {count}</button>
+    <Expensive data={childVal} />
+    </>
   );
 };
 export default App
