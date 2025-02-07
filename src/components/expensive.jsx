@@ -1,29 +1,33 @@
-import { useState,useMemo, memo } from "react";
+import React, { useState, useMemo, memo } from 'react';
 
-const Expensive = ({data}) =>
-{
-    console.log("child renders")
-    const [count,setCount]=useState(0);
-    // const calculate=()=>{
-    //          return items.reduce((a,b)=>{
-    //         console.log("calculation")
-    //         return a+b},0)
-    // }
-    const [items,setItems]=useState([2,4,5])
-    const total= useMemo(()=>items.reduce((a,b)=>{
-            console.log("calculation", count)
-            return a+b},0),[items]);
-    // const total = calculate();
+function ExpensiveComponent({ data,childClick }) {
+    const [count, setCount] = useState(0);
+    const [items, setItems] = useState([1,2,3]);
+    console.log("expensive component")
+    // Expensive computation
+    const expensiveComputation = (items) => {
+        console.log('Recomputing expensive computation...');
+        return items.reduce((total, item) => total + item, 0);
+    };
 
-    return(
-        <><p>Total:{total}</p>
-                  <button type="submit" onClick={()=>setItems([...items, 1])}>total Count</button>
-          <p>Count:{count}</p>
-          <button type="submit" onClick={()=>setCount(count+1)}>App Count</button>
-        </>
-        
-    )
+    // Memoizing the result of the expensive computation
+    const total = useMemo(() => expensiveComputation(items), [items]);
+    // const total = expensiveComputation(items); // normal way
+
+    return (
+        <div>
+            <h1>Expensive Computation Result: {total}</h1>
+            <button onClick={() => setItems([...items, items.length + 1])}>
+                Add Item
+            </button>
+            <button onClick={() => setCount(count + 1)}>
+                Increment Count: {count}
+            </button>
+            <button onClick={childClick}>
+                ChildClick
+            </button>
+        </div>
+    );
 }
 
-export default memo(Expensive);
-// export default Expensive;
+export default memo(ExpensiveComponent);

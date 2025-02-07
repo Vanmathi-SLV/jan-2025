@@ -74,7 +74,7 @@
 
 
 
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 // import { BrowserRouter as Router, Routes, Route,Navigate } from 'react-router-dom';
 // import Header from './components/header';
 // import Sidebar from './components/sidebar';
@@ -83,15 +83,15 @@ import React, { useState } from 'react';
 // import { Login } from './components/login';
 // import {DataProvider} from './context/newContext';
 // import { Auth } from './Hoc/Auth';
-import Expensive from './components/expensive';
+
 // import Contact from './components/Contact';
 
 
-const App = () => {
-  const [count, setCount] = useState(0);
-  const [childVal] = useState('to child');
-  const add = () => setCount(count + 1)
-  return (
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const [childVal] = useState('to child');
+//   const add = () => setCount(count + 1)
+//   return (
     
 
     // <DataProvider>
@@ -123,10 +123,44 @@ const App = () => {
     //   </div>
     // </Router>
     //  </DataProvider>
+//     <>
+//     <button onClick={add} >Add App : {count}</button>
+//     <Expensive data={childVal} />
+//     </>
+//   );
+// };
+// export default App
+
+
+
+
+import {useCallback, useState} from 'react';
+import ExpensiveComponent from './components/expensive';
+
+
+const App = () => {
+  const [data]=useState("data");
+  const [count, setCount] = useState(0)
+  const [childCount,setChildCount]=useState(0)
+  const handleClick = () => {
+    console.log("click app")
+    setCount(count + 1)
+  }
+
+  const childClick= useCallback(()=>{
+     console.log("Child Click",count)
+     setChildCount(childCount+1)
+  },[childCount])
+  return (
     <>
-    <button onClick={add} >Add App : {count}</button>
-    <Expensive data={childVal} />
+      <ExpensiveComponent data={data} childClick={childClick}></ExpensiveComponent>
+      <button onClick={handleClick}>Click App</button>
+      {count}--{childCount}
+
+      {/* //useCallback */}
+      {/* <Parent></Parent> */}
     </>
   );
 };
-export default App
+
+export default App;
