@@ -1,26 +1,52 @@
+import React, {useState } from 'react';
+// import {DataProvider} from './context/newContext';
+import { Navigate } from 'react-router-dom';
+import { AuthApi } from '../api/authApi';
 
-import { Navigate } from "react-router-dom";
-import { NewTest } from "../context/newContext";
-import { useContext } from "react";
+const Login = () => {
+    // const { isAuthenticated, login } = useContext(AuthContext);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
+    // if (isAuthenticated) {
+    //     return  <Navigate to="/" />;
+    // }
 
+    const submit = () => {
+        console.log(email, password, "cred");
+        
+        const user = AuthApi.sign(email, password);
+        console.log(user, "User");
+        window.localStorage.setItem("user",user)
+        // login(user);
+    }
 
-export function Login(){
-        const data=useContext(NewTest)
-        console.log(data,"HOMeee")
-        if(data.aunthenticated){
-            return(
-                <Navigate to="/home"/>
-            )
-        }
     return (
-    <>
-      I am Login
-      {/* <MyForm/> */}
-      <button type="submit" onClick={data.toggleAunthenticated}>Login</button>
-      {/* <Outlet/> */}
-    </>
-
+        <div>
+            <h2>Login</h2>
+            <div >
+                <h2>
+                    Signin <br />
+                    to access your app
+                </h2>
+                <form onSubmit={submit} >
+                    <input placeholder={"Email"} onChange={(e) => setEmail(e.target.value)} />
+                    <input
+                        placeholder={"Password"}
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button type="submit">
+                        Sign in!
+                    </button>
+                    <span>
+                        {/* Don't have an account yet ? <Link to={"/signup"}>Signup</Link> */}
+                    </span>
+                </form>
+            </div>
+            {/* <button onClick={login}>Log In</button> */}
+        </div>
     );
-    
-}
+};
+
+export default Login;

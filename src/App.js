@@ -135,9 +135,14 @@
 
 
 import {useCallback, useState} from 'react';
-import ExpensiveComponent from './components/expensive';
+import { Firebase } from './config/firebase-config';
+import { BrowserRouter as Router, Routes, Route,Navigate } from 'react-router-dom';
+import Home from '../src/components/home';
+import {DataProvider} from './context/newContext';
+import Layout from './components/layout';
+import Login from './components/login';
 
-
+Firebase.init();
 const App = () => {
   const [data]=useState("data");
   const [count, setCount] = useState(0)
@@ -153,9 +158,25 @@ const App = () => {
   },[childCount])
   return (
     <>
-      <ExpensiveComponent data={data} childClick={childClick}></ExpensiveComponent>
+      {/*<ExpensiveComponent data={data} childClick={childClick}></ExpensiveComponent>
       <button onClick={handleClick}>Click App</button>
-      {count}--{childCount}
+      {count}--{childCount}*/}
+
+ <DataProvider>
+    
+    
+     <Router>
+             <Routes>
+                 <Route path='/login' element={<Login/>}/>
+                 
+                 <Route path="/" element={<Layout/>}>
+                  <Route path="/home" element={<Home/>}/>
+                    <Route path="*" element={<Navigate to="/login" replace />}/>
+                  </Route> 
+             </Routes>
+        
+     </Router>
+      </DataProvider>
 
       {/* //useCallback */}
       {/* <Parent></Parent> */}
