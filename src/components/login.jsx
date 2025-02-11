@@ -12,12 +12,17 @@ const Login = () => {
     //     return  <Navigate to="/" />;
     // }
 
-    const submit = () => {
+    const submit  = async() => {
         console.log(email, password, "cred");
         
-        const user = AuthApi.sign(email, password);
+        
+        const user =  await AuthApi.sign(email, password);
         console.log(user, "User");
-        window.localStorage.setItem("user",user)
+        if(user){
+            Navigate('/')
+        }
+        
+        // window.localStorage.setItem("user",user)
         // login(user);
     }
 

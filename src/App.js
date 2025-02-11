@@ -144,18 +144,18 @@ import Login from './components/login';
 
 Firebase.init();
 const App = () => {
-  const [data]=useState("data");
-  const [count, setCount] = useState(0)
-  const [childCount,setChildCount]=useState(0)
-  const handleClick = () => {
-    console.log("click app")
-    setCount(count + 1)
-  }
+  // const [data]=useState("data");
+  // const [count, setCount] = useState(0)
+  // const [childCount,setChildCount]=useState(0)
+  // const handleClick = () => {
+  //   console.log("click app")
+  //   setCount(count + 1)
+  // }
 
-  const childClick= useCallback(()=>{
-     console.log("Child Click",count)
-     setChildCount(childCount+1)
-  },[childCount])
+  // const childClick= useCallback(()=>{
+  //    console.log("Child Click",count)
+  //    setChildCount(childCount+1)
+  // },[childCount])
   return (
     <>
       {/*<ExpensiveComponent data={data} childClick={childClick}></ExpensiveComponent>
@@ -171,7 +171,7 @@ const App = () => {
                  
                  <Route path="/" element={<Layout/>}>
                   <Route path="/home" element={<Home/>}/>
-                    <Route path="*" element={<Navigate to="/login" replace />}/>
+                    <Route path="*" element={<Navigate to="/home" replace />}/>
                   </Route> 
              </Routes>
         

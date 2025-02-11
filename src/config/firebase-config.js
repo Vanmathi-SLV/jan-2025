@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth} from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,9 +20,11 @@ const firebaseConfig = {
 export class Firebase{
     static firebase= undefined;
     static auth=undefined;
+    static db=undefined;
     static init() {
         this.firebase = initializeApp(firebaseConfig);
         this.auth =getAuth();
+        this.db = getFirestore(this.firebaseApp);
       }
 
     
