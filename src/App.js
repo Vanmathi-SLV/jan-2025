@@ -138,9 +138,11 @@ import {useCallback, useState} from 'react';
 import { Firebase } from './config/firebase-config';
 import { BrowserRouter as Router, Routes, Route,Navigate } from 'react-router-dom';
 import Home from '../src/components/home';
-import {DataProvider} from './context/newContext';
+// import {DataProvider} from './context/newContext';
 import Layout from './components/layout';
 import Login from './components/login';
+import { useDispatch, useSelector } from 'react-redux';
+import { Increment,Decrement } from './store/Reducers/counter';
 
 Firebase.init();
 const App = () => {
@@ -156,32 +158,42 @@ const App = () => {
   //    console.log("Child Click",count)
   //    setChildCount(childCount+1)
   // },[childCount])
-  return (
-    <>
-      {/*<ExpensiveComponent data={data} childClick={childClick}></ExpensiveComponent>
-      <button onClick={handleClick}>Click App</button>
-      {count}--{childCount}*/}
+//   return (
+//     <>
+//       {/*<ExpensiveComponent data={data} childClick={childClick}></ExpensiveComponent>
+//       <button onClick={handleClick}>Click App</button>
+//       {count}--{childCount}*/}
 
- <DataProvider>
+//  <DataProvider>
     
     
-     <Router>
-             <Routes>
-                 <Route path='/login' element={<Login/>}/>
+//      <Router>
+//              <Routes>
+//                  <Route path='/login' element={<Login/>}/>
                  
-                 <Route path="/" element={<Layout/>}>
-                  <Route path="/home" element={<Home/>}/>
-                    <Route path="*" element={<Navigate to="/home" replace />}/>
-                  </Route> 
-             </Routes>
+//                  <Route path="/" element={<Layout/>}>
+//                   <Route path="/home" element={<Home/>}/>
+//                     <Route path="*" element={<Navigate to="/home" replace />}/>
+//                   </Route> 
+//              </Routes>
         
-     </Router>
-      </DataProvider>
+//      </Router>
+//       </DataProvider>
 
-      {/* //useCallback */}
-      {/* <Parent></Parent> */}
-    </>
-  );
+//       {/* //useCallback */}
+//       {/* <Parent></Parent> */}
+//     </>
+//   );
+const dispatch=useDispatch();
+const count=useSelector((state)=>state?.counter?.counter);
+
+return (
+  <div className="App">
+    <h1>Counter: {count}</h1>
+    <button onClick={() => dispatch(Increment())}>Increment</button>
+    <button onClick={() => dispatch(Decrement())}>Decrement</button>
+  </div>
+);
 };
 
 export default App;
